@@ -89,8 +89,8 @@ const TIMELINE_DATA = [
     title: "Первые шаги в этом неизведанном мире",
     text: "Как говорил отец, пошел я через пару дней как мне стукнул год",
     photos: [
-      { src: "assets/images/timeline/02-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/02-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/02-1.jpg", caption: "мелкий я" },
+      { src: "assets/images/timeline/02-2.jpg", caption: "" }
     ]
   },
   {
@@ -98,8 +98,8 @@ const TIMELINE_DATA = [
     title: "Ребенок векторианской эпохи",
     text: "В этом возрасте узналось что я собрал все дебафы в этой жизни, а конкретно косоглазие, дальнозоркость и близорукость одновременно, астма, аллергия, и куча других проблем) В этом же году остался воспитываться только отцом",
     photos: [
-      { src: "assets/images/timeline/03-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/03-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/03-1.jpg", caption: "дед морозка" },
+      { src: "assets/images/timeline/03-2.jpg", caption: "" }
     ]
   },
   {
@@ -107,143 +107,143 @@ const TIMELINE_DATA = [
     title: "СОЦИАЛИЗАЦИЯ",
     text: "В этом возрасте я пошел в муниципальный детский сад №9 г.Хабаровск, там я существовал ближайшие несколько лет, потому что воспитывался только отцом, работающим сутки через сутки",
     photos: [
-      { src: "assets/images/timeline/04-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/04-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/04-1.jpg", caption: "я с кузеном" },
+      { src: "assets/images/timeline/04-2.jpg", caption: "я с кузеном" }
     ]
   },
   {
     year: "4-5",
     title: "Первые признаки увлечений",
-    text: "ваш текст",
+    text: "Рыбалка и активный отдых полюбился мне",
     photos: [
-      { src: "assets/images/timeline/05-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/05-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/05-1.jpg", caption: "саблезубый" },
+      { src: "assets/images/timeline/05-2.jpg", caption: "первая рыбеха" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "5-6",
+    title: "Затишье перед новым этапом",
+    text: "Отбываю последний год в детском саду",
     photos: [
-      { src: "assets/images/timeline/06-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/06-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/06-1.jpg", caption: "посмотрел фильм карате пацан" },
+      { src: "assets/images/timeline/06-2.jpg", caption: "впервые еду на двухколесном" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "6-7",
+    title: "Выпускной и новый путь",
+    text: "Поступил в МБОУ СОШ №49",
     photos: [
-      { src: "assets/images/timeline/07-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/07-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/07-1.jpg", caption: "на рыбалке" },
+      { src: "assets/images/timeline/07-2.jpg", caption: "выпускной" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "7-8",
+    title: "Безграничные поездки на моря",
+    text: "За этот год я был трижды на море",
     photos: [
-      { src: "assets/images/timeline/08-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/08-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/08-1.jpg", caption: "я на море" },
+      { src: "assets/images/timeline/08-2.jpg", caption: "просто море" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "8-9",
+    title: "Новые увлечения",
+    text: "Начал заниматься Тхэквандо и боксом одновременно",
     photos: [
-      { src: "assets/images/timeline/09-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/09-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/09-1.jpg", caption: "лайк" },
+      { src: "assets/images/timeline/09-2.jpg", caption: "" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "9-10",
+    title: "Первая победа",
+    text: "Занял второе место в краевом чемпионате, получил желтую полоску",
     photos: [
-      { src: "assets/images/timeline/10-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/10-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/10-1.jpg", caption: "я на танке" },
+      { src: "assets/images/timeline/10-2.jpg", caption: "на чемпионате" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "10-11",
+    title: "Ничего необычного, просто жизнь школьника",
+    text: "Буквально ничего, год был пустым",
     photos: [
-      { src: "assets/images/timeline/11-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/11-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/11-1.jpg", caption: "" },
+      { src: "assets/images/timeline/11-2.jpg", caption: "" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "11-12",
+    title: "Единственная фотка за год",
+    text: "Я и бабушка",
     photos: [
-      { src: "assets/images/timeline/12-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/12-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/12-1.jpg", caption: "я и бабушка" },
+      { src: "assets/images/timeline/12-2.jpg", caption: "заглушка" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "12-13",
+    title: "Решил попробовать бассеин",
+    text: "*рыбачил там же",
     photos: [
-      { src: "assets/images/timeline/13-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/13-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/13-1.jpg", caption: "рыбеха" },
+      { src: "assets/images/timeline/13-2.jpg", caption: "пробую басеин" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "13-14",
+    title: "Новые временые друзья",
+    text: "Умел находить общий язык",
     photos: [
-      { src: "assets/images/timeline/14-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/14-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/14-1.jpg", caption: "моря " },
+      { src: "assets/images/timeline/14-2.jpg", caption: "снова моря" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "14-15",
+    title: "Строим новый дом",
+    text: "Собственноручно построили дом ",
     photos: [
-      { src: "assets/images/timeline/15-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/15-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/15-1.jpg", caption: "в кино с отцом" },
+      { src: "assets/images/timeline/15-2.jpg", caption: "на даче с батей" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "15-16",
+    title: "Поездка в питер",
+    text: "Питер",
     photos: [
-      { src: "assets/images/timeline/16-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/16-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/16-1.jpg", caption: "в гуме" },
+      { src: "assets/images/timeline/16-2.jpg", caption: "интим" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "16-17",
+    title: "Конец одной истории - начало другой",
+    text: "Встретил человека с которым прожить всю жинь",
     photos: [
-      { src: "assets/images/timeline/17-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/17-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/17-1.jpg", caption: "выпускной" },
+      { src: "assets/images/timeline/17-2.jpg", caption: "новый человек в моей жизни" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
+    year: "17-18",
+    title: "ДВФУ и новая жизнь",
     text: "ваш текст",
     photos: [
-      { src: "assets/images/timeline/18-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/18-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/18-1.jpg", caption: "эксперименты" },
+      { src: "assets/images/timeline/18-2.jpg", caption: "на острове зимой" }
     ]
   },
   {
-    year: "ваш год",
-    title: "ваше название",
-    text: "ваш текст",
+    year: "18-19",
+    title: "Самостоятельная жизнь",
+    text: "Общагу потеряли, получили 17квм",
     photos: [
-      { src: "assets/images/timeline/19-1.jpg", caption: "ваш текст" },
-      { src: "assets/images/timeline/19-2.jpg", caption: "ваш текст" }
+      { src: "assets/images/timeline/19-1.jpg", caption: "мы в кино" },
+      { src: "assets/images/timeline/19-2.jpg", caption: "нагорный парк" }
     ]
   }
 ];
