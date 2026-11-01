@@ -1,0 +1,1218 @@
+/* ==========================================================================
+   ЛИЧНЫЙ САЙТ — СТИЛИ
+   Тёмная гамма (графит + мягкий янтарный акцент).
+   Строгий Inter для сайта, рукописный Caveat для летописи.
+
+   Содержание:
+   1.  Переменные (цвета, шрифты, размеры) — меняйте здесь
+   2.  Базовые стили
+   3.  Общие элементы (кнопки, заглушки фото, заголовки секций)
+   4.  Шапка
+   5.  Главный экран
+   6.  Летопись жизни
+   7.  Увлечения
+   8.  Социальные сети
+   9.  Подвал
+   10. Полноэкранный просмотр фото
+   11. Появление при прокрутке
+   12. Адаптивность
+   13. Уменьшение анимации
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. ПЕРЕМЕННЫЕ
+   ========================================================================== */
+:root {
+  /* Цвета */
+  --bg:         #16181c;   /* фон страницы */
+  --surface:    #1f2227;   /* карточки */
+  --surface-2:  #282c33;   /* вложенные элементы, иконки */
+  --text:       #e8e6e1;   /* основной текст */
+  --text-soft:  #c4c2bc;   /* длинные описания */
+  --muted:      #9a9ca3;   /* второстепенный текст */
+  --accent:     #d9a566;   /* акцент: кнопки, активные элементы */
+  --accent-ink: #1b1710;   /* цвет текста на акценте */
+  --line:       rgba(255, 255, 255, 0.09);
+  --paper:      #ebe7de;   /* «белая рамка» фотографий в летописи */
+
+  /* Шрифты */
+  --font-ui:   "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+
+  /* Размеры */
+  --max:     1120px;                      /* максимальная ширина контента */
+  --gutter:  clamp(1.1rem, 4vw, 2.5rem); /* боковые отступы */
+  --header-h: 4.25rem;                    /* высота шапки */
+
+  /* Прокрутка по меню и кнопке «Познакомиться поближе» */
+  --section-pad: clamp(4rem, 10vw, 7rem); /* верхний и нижний отступ разделов */
+  --scroll-gap: 1rem;                     /* зазор между шапкой и заголовком раздела после прокрутки:
+                                             больше число — заголовок ниже, меньше — выше */
+
+  /* Высота блока с фото в летописи (зависит от высоты окна) */
+  --memory-photos-h: clamp(190px, 38vh, 400px);
+
+  /* Скругления: у разных элементов разные, чтобы не было «одинаковых плиток» */
+  --r-card:  18px;
+  --r-ctrl:  10px;
+  --r-photo: 4px;
+
+  /* Анимация */
+  --ease: cubic-bezier(0.22, 0.8, 0.26, 1);
+}
+
+
+/* ==========================================================================
+   2. БАЗОВЫЕ СТИЛИ
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Пока открыт просмотр фото, страница под ним не прокручивается */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, p, ul, ol, figure {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Видимый фокус для клавиатуры */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: var(--r-ctrl);
+  font-weight: 600;
+  transition: top 0.2s var(--ease);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.noscript {
+  color: var(--muted);
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+
+/* ==========================================================================
+   3. ОБЩИЕ ЭЛЕМЕНТЫ
+   ========================================================================== */
+
+/* ----- Кнопка ----- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.7rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: var(--r-ctrl);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(217, 165, 102, 0.22);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* ----- Место под фотографию -----
+   Внутри лежит <img> (если файл найден) и подпись-заглушка.
+   Картинка перекрывает подпись, а если файла нет — картинка
+   удаляется, и видна подпись «сюда ваше фото». */
+.photo-slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  border-radius: var(--r-card);
+  color: var(--muted);
+  text-align: center;
+}
+
+.photo-slot > img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-slot__label {
+  position: relative;
+  z-index: 0;
+  padding: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.photo-slot__label small {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  opacity: 0.7;
+  word-break: break-all;
+}
+
+/* ----- Заголовок секции ----- */
+.section {
+  padding-block: var(--section-pad);
+  border-top: 1px solid var(--line);
+  /* При прокрутке к разделу пустой верхний отступ «съедается»,
+     и заголовок встаёт сразу под шапкой */
+  scroll-margin-top: calc(var(--scroll-gap) - var(--section-pad));
+}
+
+/* Всё содержимое секции — в колонке одной ширины */
+.section > * {
+  width: min(var(--max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.section__head {
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.section__title {
+  font-size: clamp(1.9rem, 4.2vw, 2.8rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section__lead {
+  margin-top: 0.9rem;
+  max-width: 56ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+
+/* ==========================================================================
+   4. ШАПКА
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+  background: rgba(22, 24, 28, 0.94);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header__logo {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45vw;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.2rem);
+}
+
+.site-nav a {
+  position: relative;
+  padding-block: 0.4rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--text);
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+
+/* ==========================================================================
+   5. ГЛАВНЫЙ ЭКРАН
+   ========================================================================== */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - var(--header-h));
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5.5rem);
+  width: min(var(--max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+/* Фото: чуть смещённая рамка за ним создаёт ощущение «снимка на столе» */
+.hero__photo {
+  position: relative;
+  /* Ширина ограничена высотой окна: фото 4:5 целиком помещается на экране */
+  max-width: min(460px, calc((100svh - var(--header-h) - 5rem) * 0.8));
+  width: 100%;
+  justify-self: start;
+}
+
+.hero__photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(14px, 14px);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-card);
+  opacity: 0.55;
+}
+
+.hero__photo .photo-slot {
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+}
+
+.hero__title {
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero__motto {
+  margin-top: 1.1rem;
+  color: var(--accent);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 500;
+}
+
+.hero__bio {
+  margin-top: 1.4rem;
+  max-width: 52ch;
+  color: var(--text-soft);
+  font-size: 1.05rem;
+}
+
+.hero__bio + .hero__bio {
+  margin-top: 0.9rem;
+}
+
+.hero__actions {
+  margin-top: 2.2rem;
+}
+
+/* Единственный анимированный момент при загрузке:
+   элементы главного экрана появляются по очереди */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero [data-reveal] {
+  animation: rise 0.9s var(--ease) both;
+  animation-delay: var(--d, 0s);
+}
+
+.hero__photo                 { --d: 0.05s; }
+.hero__title                 { --d: 0.2s; }
+.hero__motto                 { --d: 0.35s; }
+.hero__bio                   { --d: 0.5s; }
+.hero__bio + .hero__bio      { --d: 0.6s; }
+.hero__actions               { --d: 0.75s; }
+
+
+/* ==========================================================================
+   6. ЛЕТОПИСЬ ЖИЗНИ
+   ========================================================================== */
+
+/* Карусель на всю ширину экрана (шире основной колонки) */
+.section > .timeline {
+  width: 100%;
+  margin-inline: 0;
+}
+
+.timeline {
+  --gap: clamp(1rem, 3vw, 2rem);
+  --peek: clamp(0.75rem, 6vw, 5rem); /* сколько видно соседние карточки */
+}
+
+/* В летописи заголовок ближе к карточкам, чтобы всё помещалось на экране */
+.timeline-section .section__head {
+  margin-bottom: 0.75rem;
+}
+
+.timeline__viewport {
+  overflow: hidden;
+  padding-block: 0.5rem 1rem;
+}
+
+.timeline__viewport:focus-visible {
+  outline-offset: -4px;
+}
+
+/* Трек сдвигает script.js (transform: translateX) */
+.timeline__track {
+  display: flex;
+  gap: var(--gap);
+  transition: transform 0.7s var(--ease);
+  will-change: transform;
+  touch-action: pan-y; /* вертикальная прокрутка страницы работает, горизонтальные свайпы — для карусели */
+}
+
+/* ----- Карточка года ----- */
+.memory {
+  flex: 0 0 min(980px, calc(100% - 2 * var(--peek)));
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding: clamp(1.1rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  opacity: 0.38;
+  transform: scale(0.95);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  cursor: pointer;
+}
+
+/* Активная (текущая) карточка — класс ставит script.js */
+.memory.is-active {
+  opacity: 1;
+  transform: none;
+  cursor: default;
+}
+
+/* Фото в неактивных карточках не ловят клик — клик по карточке переключает на неё */
+.memory:not(.is-active) .photo-slot--button {
+  pointer-events: none;
+}
+
+.memory__year {
+  font-family: var(--font-hand);
+  font-size: clamp(2.8rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.memory__title {
+  margin-top: 0.4rem;
+  font-family: var(--font-hand);
+  font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.memory__text {
+  margin-top: 1rem;
+  font-family: var(--font-hand);
+  font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.32;
+  color: var(--text-soft);
+}
+
+/* ----- Фотографии в карточке: как снимки, лежащие на столе ----- */
+.memory__photos {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(0.7rem, 2vw, 1.1rem);
+  padding: 0.4rem;
+  height: var(--memory-photos-h);
+}
+
+.photo-slot--button {
+  padding: 0;
+  border: 7px solid var(--paper);
+  border-radius: var(--r-photo);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+  background: var(--surface-2);
+  cursor: zoom-in;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.photo-slot--button:hover,
+.photo-slot--button:focus-visible {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Первая фотография — крупная, на всю высоту слева */
+.memory__photos > :first-child {
+  grid-row: 1 / -1;
+}
+
+/* Если фото одно — оно на всю ширину */
+.memory__photos > :only-child {
+  grid-column: 1 / -1;
+}
+
+/* Если фотографий две — вторая тоже на всю высоту */
+.memory__photos > :nth-child(2):last-child {
+  grid-row: 1 / -1;
+}
+
+/* На карточке видны первые 3 фото, остальные листаются в увеличенном просмотре */
+.memory__photos > :nth-child(n + 4) {
+  display: none;
+}
+
+.memory__photos > :nth-child(odd)  { --tilt: -1.6deg; }
+.memory__photos > :nth-child(even) { --tilt: 1.4deg; }
+
+/* ----- Кнопки управления ----- */
+/* Карусель идёт на всю ширину экрана, а кнопки, полоса и точки держатся в колонке сайта */
+.timeline__controls,
+.timeline__progress,
+.timeline__dots {
+  width: min(var(--max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.timeline__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.timeline__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctrl);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s var(--ease);
+}
+
+.timeline__btn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.timeline__btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.timeline__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.timeline__counter {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline__counter [data-timeline-current] {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ----- Индикатор позиции ----- */
+.timeline__progress {
+  height: 3px;
+  margin-top: 1rem;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.timeline__progress-bar {
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.7s var(--ease);
+}
+
+.timeline__dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1rem;
+  margin-top: 0.75rem;
+}
+
+/* Точка-кнопка: script.js создаёт <button class="timeline__dot"> */
+.timeline__dot {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.timeline__dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--surface-2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s var(--ease), background 0.3s, border-color 0.3s;
+}
+
+.timeline__dot:hover::before {
+  background: var(--muted);
+}
+
+.timeline__dot.is-active::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+
+/* ==========================================================================
+   7. УВЛЕЧЕНИЯ
+   Горизонтальная карусель: одна «страница» = одно увлечение + 3 фото.
+   Кнопки и точки используют стили летописи (.timeline__btn, .timeline__dot).
+   ========================================================================== */
+.hobbies__viewport {
+  overflow: hidden;
+  border-radius: var(--r-card);
+}
+
+.hobbies__viewport:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Ленту сдвигает script.js (transform: translateX) */
+.hobbies__track {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.6s var(--ease);
+  will-change: transform;
+  touch-action: pan-y; /* вертикальная прокрутка страницы работает, горизонтальные свайпы — для карусели */
+}
+
+/* ----- Страница увлечения ----- */
+.hobby-page {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(1.1rem, 3vw, 2.25rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+}
+
+.hobby-page__title {
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hobby-page__text {
+  margin-top: 0.9rem;
+  max-width: 44ch;
+  color: var(--text-soft);
+  font-size: 1.05rem;
+}
+
+.hobby-page__extra {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  max-width: 44ch;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.hobby-page__extra:empty {
+  display: none;
+}
+
+/* ----- Три фото: одно высокое слева, два друг под другом справа ----- */
+.hobby-page__photos {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(0.5rem, 1.5vw, 0.9rem);
+  aspect-ratio: 5 / 4;
+}
+
+.hobby-page__photo {
+  padding: 0;
+  border-radius: 12px;
+  cursor: zoom-in;
+  transition: border-color 0.3s;
+}
+
+.hobby-page__photo:first-child {
+  grid-row: 1 / -1;
+}
+
+/* Если фото одно — оно на всю ширину */
+.hobby-page__photo:only-child {
+  grid-column: 1 / -1;
+}
+
+/* Если фото два — второе тоже на всю высоту */
+.hobby-page__photo:nth-child(2):last-child {
+  grid-row: 1 / -1;
+}
+
+/* Макет рассчитан на 3 фото, лишние на странице не показываются */
+.hobby-page__photos > :nth-child(n + 4) {
+  display: none;
+}
+
+.hobby-page__photo > img {
+  transition: transform 0.7s var(--ease);
+}
+
+.hobby-page__photo:hover,
+.hobby-page__photo:focus-visible {
+  border-color: rgba(217, 165, 102, 0.6);
+}
+
+.hobby-page__photo:hover > img,
+.hobby-page__photo:focus-visible > img {
+  transform: scale(1.06);
+}
+
+/* ----- Кнопки и точки ----- */
+/* Стрелки по бокам карточки */
+.hobbies__stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.4rem, 1.5vw, 1rem);
+}
+
+.hobbies__arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s var(--ease);
+}
+
+.hobbies__arrow:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.hobbies__arrow:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.hobbies__arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.hobbies__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.hobbies__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+
+/* ==========================================================================
+   8. СОЦИАЛЬНЫЕ СЕТИ
+   ========================================================================== */
+.socials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  height: 100%;
+  padding: 1.25rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  transition: transform 0.35s var(--ease), border-color 0.35s, box-shadow 0.35s var(--ease);
+}
+
+.social__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  background: var(--surface-2);
+  border-radius: 14px;
+  color: var(--accent);
+  transition: background 0.35s, color 0.35s;
+}
+
+.social__icon svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.social__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.social__name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.social__text {
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.social:hover,
+.social:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(217, 165, 102, 0.55);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.35);
+}
+
+.social:hover .social__icon,
+.social:focus-visible .social__icon {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+
+/* ==========================================================================
+   9. ПОДВАЛ
+   ========================================================================== */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.75rem var(--gutter);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.site-footer__up {
+  padding: 0.4rem 0;
+  transition: color 0.2s;
+}
+
+.site-footer__up:hover {
+  color: var(--accent);
+}
+
+
+/* ==========================================================================
+   10. ПОЛНОЭКРАННЫЙ ПРОСМОТР ФОТО
+   ========================================================================== */
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+}
+
+.lightbox::backdrop {
+  background: rgba(10, 11, 13, 0.93);
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lightbox[open] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  padding: clamp(1rem, 3vw, 2rem);
+  animation: lightbox-in 0.3s var(--ease);
+}
+
+.lightbox__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.lightbox__stage {
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 78vh;
+  max-height: 78dvh;
+  object-fit: contain;
+  border-radius: var(--r-photo);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Если у фото ещё нет файла — показываем рамку-заглушку */
+.lightbox__placeholder {
+  display: grid;
+  place-items: center;
+  width: min(80vw, 720px);
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+  border: 1px dashed rgba(255, 255, 255, 0.28);
+  border-radius: var(--r-photo);
+  color: var(--muted);
+}
+
+.lightbox__caption {
+  max-width: 60ch;
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 1rem;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s var(--ease);
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  font-size: 1.9rem;
+}
+
+/* Когда фото одно, script.js прячет стрелки (атрибут hidden) */
+
+
+/* ==========================================================================
+   11. ПОЯВЛЕНИЕ ПРИ ПРОКРУТКЕ
+   Класс .reveal добавляет script.js (и класс .js на <html>),
+   поэтому без JavaScript весь контент остаётся видимым.
+   ========================================================================== */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ==========================================================================
+   12. АДАПТИВНОСТЬ
+   ========================================================================== */
+
+/* ----- Планшеты ----- */
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__inner {
+    gap: 1.75rem;
+  }
+
+  .hero__photo {
+    max-width: 440px;
+    margin-bottom: 14px; /* место под смещённую рамку */
+  }
+
+  /* На планшетах и телефонах фото горизонтальное, чтобы не уходило за экран */
+  .hero__photo .photo-slot {
+    aspect-ratio: 4 / 3;
+    max-height: 42svh;
+    width: 100%;
+  }
+
+  .hero__photo .photo-slot > img {
+    object-position: center 20%;
+  }
+
+  .hobbies__arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .memory {
+    grid-template-columns: 1fr;
+  }
+
+  .memory__photos {
+    order: -1; /* фото сверху, история под ними */
+    height: clamp(170px, 28vh, 300px);
+  }
+
+  .hobby-page {
+    grid-template-columns: 1fr;
+  }
+
+  .hobby-page__photos {
+    order: -1; /* фото сверху, текст под ними */
+  }
+}
+
+/* ----- Телефоны ----- */
+@media (max-width: 600px) {
+  :root {
+    --header-h: 3.75rem;
+  }
+
+  .site-header {
+    justify-content: center;
+  }
+
+  .site-header__logo {
+    display: none;
+  }
+
+  .site-nav a {
+    font-size: 0.9rem;
+  }
+
+  .hero__actions .button {
+    width: 100%;
+  }
+
+  .timeline__controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .timeline__counter {
+    order: -1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .timeline__btn {
+    flex: 1 1 0;
+    justify-content: center;
+    padding-inline: 0.75rem;
+    font-size: 0.93rem;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Просмотр фото: стрелки внизу экрана, фото — на всю ширину */
+  .lightbox[open] {
+    grid-template-columns: 1fr;
+    align-content: center;
+  }
+
+  .lightbox__nav {
+    position: fixed;
+    bottom: 1.25rem;
+    z-index: 2;
+  }
+
+  .lightbox__nav--prev {
+    left: 1.25rem;
+  }
+
+  .lightbox__nav--next {
+    right: 1.25rem;
+  }
+
+  .lightbox__img {
+    max-height: 70dvh;
+  }
+}
+
+
+/* ==========================================================================
+   13. УМЕНЬШЕНИЕ АНИМАЦИИ
+   Если в системе включён режим «уменьшить движение», анимации отключаются.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}

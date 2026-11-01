@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#16181c">
+
+  <!-- ЗАМЕНИТЕ: заголовок вкладки и описание для поисковиков -->
+  <title>Пустобаев Никита — личная страница</title>
+  <meta name="description" content="ваш текст">
+
+  <!-- Шрифты: Inter (основной) и Caveat (рукописный, для летописи) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <!-- ============================================================
+       ШАПКА
+       ============================================================ -->
+  <header class="site-header" id="top">
+    <a class="site-header__logo" href="#top">Пустобаев Никита</a>
+
+    <nav class="site-nav" aria-label="Основная навигация">
+      <ul class="site-nav__list">
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#timeline">Летопись</a></li>
+        <li><a href="#hobbies">Увлечения</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         ГЛАВНЫЙ ЭКРАН: фото слева, текст справа
+         ============================================================ -->
+    <section class="hero" id="about" aria-labelledby="hero-title">
+      <div class="hero__inner">
+
+        <figure class="hero__photo" data-reveal>
+          <div class="photo-slot">
+            <!-- Если файла нет, картинка удалится и останется подпись-заглушка -->
+            <img
+              src="assets/images/profile/ya.jpg"
+              alt="Портрет: ваше ФИО"
+              width="800" height="1000"
+              onerror="this.remove()">
+            <span class="photo-slot__label"><br><small>assets/images/profile/portrait.jpg</small></span>
+          </div>
+        </figure>
+
+        <div class="hero__text">
+          <h1 class="hero__title" id="hero-title" data-reveal>Пустобаев Никита Иванович</h1>
+          <p class="hero__motto" data-reveal>Не экстремист, а тактикульщик</p>
+          <p class="hero__bio" data-reveal>Родился 19 сентября 2007 года, по ЗЗ Дева. В данный момент учусь в ДВФУ на втором курсе направления Прикладная математика и информатика Б9125-01.03.02сп. </p>
+          <p class="hero__bio" data-reveal>Состою в студенческом объединении СК "Борей", программист с маленькой буквы, математик с еще меньшей, веселый, оптимистичный, люблю пиццу и синабоны.</p>
+
+          <div class="hero__actions" data-reveal>
+            <a class="button" href="#timeline" data-scroll>Познакомиться поближе</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         ЛЕТОПИСЬ ЖИЗНИ
+         Карточки создаёт script.js из массива TIMELINE_DATA.
+         Здесь описана только «оболочка» карусели.
+         ============================================================ -->
+    <section class="section timeline-section" id="timeline" aria-labelledby="timeline-title">
+      <div class="section__head">
+        <h2 class="section__title" id="timeline-title">Летопись моей жизни</h2>
+        <p class="section__lead">Собрал самые забавные, интересные моменты из моих 19 лет</p>
+      </div>
+
+      <div class="timeline" data-timeline>
+
+        <div
+          class="timeline__viewport"
+          tabindex="0"
+          role="region"
+          aria-roledescription="карусель"
+          aria-label="Летопись жизни по годам. Листайте стрелками клавиатуры или свайпом.">
+          <ol class="timeline__track" data-timeline-track></ol>
+        </div>
+
+        <div class="timeline__controls">
+          <button class="timeline__btn" type="button" data-timeline-prev>
+            <span aria-hidden="true">←</span> Годом раньше
+          </button>
+
+          <p class="timeline__counter" aria-live="polite">
+            <span data-timeline-current>1</span> из <span data-timeline-total>1</span>
+          </p>
+
+          <button class="timeline__btn" type="button" data-timeline-next>
+            Годом позже <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <!-- Полоса прогресса и точки-индикаторы -->
+        <div class="timeline__progress" aria-hidden="true">
+          <div class="timeline__progress-bar" data-timeline-progress></div>
+        </div>
+        <div class="timeline__dots" data-timeline-dots role="tablist" aria-label="Выбор года"></div>
+
+        <noscript>
+          <p class="noscript">Для просмотра летописи включите JavaScript в браузере.</p>
+        </noscript>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         МОИ УВЛЕЧЕНИЯ
+         Карточки создаёт script.js из массива HOBBIES_DATA.
+         ============================================================ -->
+    <section class="section hobbies-section" id="hobbies" aria-labelledby="hobbies-title">
+      <div class="section__head">
+        <h2 class="section__title" id="hobbies-title">Мои увлечения</h2>
+        <p class="section__lead">То чем я занимаюсь по сей день и собираюсь заниматься дальше</p>
+      </div>
+
+      <!-- Карусель увлечений: каждая «страница» = одно увлечение + 3 фото.
+           Страницы создаёт script.js из массива HOBBIES_DATA.
+           Кнопки и точки используют те же стили, что и в летописи. -->
+      <div class="hobbies" data-hobbies>
+
+        <!-- Стрелки слева и справа от карточки, точки под ней -->
+        <div class="hobbies__stage">
+          <button class="hobbies__arrow" type="button" data-hobbies-prev aria-label="Предыдущее увлечение">
+            <span aria-hidden="true">←</span>
+          </button>
+
+          <div
+            class="hobbies__viewport"
+            tabindex="0"
+            role="region"
+            aria-roledescription="карусель"
+            aria-label="Мои увлечения. Листайте стрелками клавиатуры или свайпом.">
+            <ol class="hobbies__track" data-hobbies-track></ol>
+          </div>
+
+          <button class="hobbies__arrow" type="button" data-hobbies-next aria-label="Следующее увлечение">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <div class="hobbies__controls">
+          <div class="hobbies__dots" data-hobbies-dots role="tablist" aria-label="Выбор увлечения"></div>
+        </div>
+
+      </div>
+
+      <noscript>
+        <p class="noscript">Для просмотра увлечений включите JavaScript в браузере.</p>
+      </noscript>
+    </section>
+
+
+    <!-- ============================================================
+         СОЦИАЛЬНЫЕ СЕТИ
+         Ссылки меняются в одном месте: объект SOCIAL_LINKS в script.js.
+         ============================================================ -->
+    <section class="section contacts-section" id="contacts" aria-labelledby="contacts-title">
+      <div class="section__head">
+        <h2 class="section__title" id="contacts-title">Где меня найти</h2>
+        <p class="section__lead"></p>
+      </div>
+
+      <ul class="socials" data-socials></ul>
+
+      <noscript>
+        <p class="noscript">Для просмотра ссылок включите JavaScript в браузере.</p>
+      </noscript>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       ПОДВАЛ
+       ============================================================ -->
+  <footer class="site-footer">
+    <p class="site-footer__text">Пустобаев Никита Иванович, <span data-year>2026</span></p>
+    <a class="site-footer__up" href="#top" data-scroll>Наверх</a>
+  </footer>
+
+
+  <!-- ============================================================
+       ПОЛНОЭКРАННЫЙ ПРОСМОТР ФОТО
+       Открывается по клику на любое фото в летописи.
+       ============================================================ -->
+  <dialog class="lightbox" data-lightbox aria-label="Просмотр фотографии">
+    <button class="lightbox__close" type="button" data-lightbox-close aria-label="Закрыть">×</button>
+
+    <button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Предыдущее фото">←</button>
+
+    <figure class="lightbox__figure">
+      <div class="lightbox__stage">
+        <img class="lightbox__img" data-lightbox-img src="" alt="">
+        <p class="lightbox__placeholder" data-lightbox-placeholder hidden></p>
+      </div>
+      <figcaption class="lightbox__caption" data-lightbox-caption></figcaption>
+    </figure>
+
+    <button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Следующее фото">→</button>
+  </dialog>
+
+
+  <!-- ============================================================
+       ШАБЛОНЫ КАРТОЧЕК
+       script.js копирует эти блоки и подставляет данные.
+       Менять их нужно только если вы хотите изменить саму вёрстку карточки.
+       ============================================================ -->
+
+  <!-- Карточка года в летописи -->
+  <template id="tpl-memory">
+    <li class="memory" role="group" aria-roledescription="слайд">
+      <div class="memory__photos" data-photos></div>
+      <div class="memory__body">
+        <p class="memory__year" data-year-label></p>
+        <h3 class="memory__title" data-title></h3>
+        <p class="memory__text" data-text></p>
+      </div>
+    </li>
+  </template>
+
+  <!-- Одна фотография внутри карточки (кнопка, открывает увеличенный просмотр) -->
+  <template id="tpl-photo">
+    <button class="photo-slot photo-slot--button" type="button">
+      <img src="" alt="" loading="lazy" onerror="this.remove()">
+      <span class="photo-slot__label"></span>
+    </button>
+  </template>
+
+  <!-- Страница увлечения (название, описание и место под 3 фото) -->
+  <template id="tpl-hobby">
+    <li class="hobby-page" role="group" aria-roledescription="слайд">
+      <div class="hobby-page__body">
+        <h3 class="hobby-page__title" data-title></h3>
+        <p class="hobby-page__text" data-text></p>
+        <p class="hobby-page__extra" data-extra></p>
+      </div>
+      <div class="hobby-page__photos" data-photos></div>
+    </li>
+  </template>
+
+  <!-- Одна фотография на странице увлечения (кнопка, открывает увеличенный просмотр) -->
+  <template id="tpl-hobby-photo">
+    <button class="hobby-page__photo photo-slot" type="button">
+      <img src="" alt="" loading="lazy" onerror="this.remove()">
+      <span class="photo-slot__label"></span>
+    </button>
+  </template>
+
+  <!-- Карточка социальной сети -->
+  <template id="tpl-social">
+    <li>
+      <a class="social" target="_blank" rel="noopener noreferrer">
+        <span class="social__icon" data-icon aria-hidden="true"></span>
+        <span class="social__body">
+          <span class="social__name" data-name></span>
+          <span class="social__text" data-text></span>
+        </span>
+      </a>
+    </li>
+  </template>
+
+</body>
+</html>
